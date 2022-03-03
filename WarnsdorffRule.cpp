@@ -1,10 +1,12 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<ctime>
 
 using namespace std;
 
 int success = 0;
+int turnes = 0;
 
 int find_turnes(int x, int y, int ** desk, int n) {
 	int count = 0;
@@ -42,8 +44,8 @@ int find_turnes(int x, int y, int ** desk, int n) {
 }
 
 void solution(int count, int x, int y, int** desk, int n) {
+	turnes++;
 	if (((0 <= x) && (x < n)) && ((0 <= y) && (y < n)) && (desk[x][y] == 0)) {
-		//cout << x << " " << y << " " << count << "\n";
 		if (count == n * n) {
 			success = 1;
 			desk[x][y] = count;
@@ -134,13 +136,20 @@ void delete_desk(int** desk, int n) {
 }
 
 int main() {
-	int n = 8, count = 1, x = 2, y = 4;
+	unsigned start = clock();
+	int n = 8, count = 1, x = 7, y = 7;
 	int** desk = new int* [n];
 
 	create_desk(desk, n);
 	solution(count, x, y, desk, n);
 	print_desk(desk, n);
 	delete_desk(desk, n);
+
+	//cout << "\nTurnes: " << turnes << endl;
+
+	unsigned int end = clock();
+
+	cout << "Time: " << end - start << " ms" << endl;
 
 	return 0;
 }
